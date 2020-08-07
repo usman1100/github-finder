@@ -3,7 +3,7 @@ import React from "react";
 const Header = () => {
     return (
         <div>
-            <div className="jumbotron">
+            <div className="jumbotron bg-info text-light">
                 <h1 className="display-3">Github Finder</h1>
                 <p className="lead">
                     Search up any GitHub user from their username or repos

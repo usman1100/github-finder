@@ -4,35 +4,40 @@ import SearchButton from "./components/SearchButton"
 import SearchBox from './components/SearchBox';
 import CardContainer from './components/CardContainer';
 import Card from './components/Card';
+import Spinner from "./components/Spinner"
 
 
 
 class App extends React.Component {
 
-    constructor(){
+    constructor() {
         super();
 
         this.state = {
-            userList:[],
-            userName:[]
+            userList: [],
+            userName: "",
+            loading: false
         }
     }
 
-    getUsers = userName =>{
-        const url =`https://api.github.com/search/users?q=${this.state.userName}`
+    getUsersList = userName => {
+
+        this.setState({ loading: true })
+        const url = `https://api.github.com/search/users?q=${this.state.userName}`
 
         fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            this.setState({userList:data['items']})
-            console.log(this.state.userList)
-        })
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ userList: data['items'] })
+                this.setState({ loading: false })
+
+            })
     }
 
-    setUserName = e =>{
-        this.setState({userName:e.target.value}
-            )
-        
+    setUserName = e => {
+        this.setState({ userName: e.target.value }
+        )
+
     }
 
     render() {
@@ -43,15 +48,19 @@ class App extends React.Component {
 
                 <SearchBox updateUserName={this.setUserName} />
 
-                <SearchButton getUsers={this.getUsers}/>
+                <SearchButton getUsers={this.getUsersList} />
+
+                {this.state.loading?<Spinner/>:
 
                 <CardContainer>
                     {
-                        this.state.userList.map( user => 
-                            <Card profile={user}/>
+                        this.state.userList.map(user =>
+                            <Card profile={user} />
                         )
                     }
                 </CardContainer>
+
+                }
 
             </div>
         );
