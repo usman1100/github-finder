@@ -5,6 +5,7 @@ import SearchBox from './components/SearchBox';
 import CardContainer from './components/CardContainer';
 import Card from './components/Card';
 import Spinner from "./components/Spinner"
+import NotFoundText from './components/NotFoundText';
 
 
 
@@ -16,7 +17,8 @@ class App extends React.Component {
         this.state = {
             userList: [],
             userName: "",
-            loading: false
+            loading: false,
+            notFound: false
         }
     }
 
@@ -29,7 +31,17 @@ class App extends React.Component {
             .then(response => response.json())
             .then(data => {
                 this.setState({ userList: data['items'] })
-                this.setState({ loading: false })
+                if (this.state.userList.length === 0){
+                    console.log("Empty Array")
+                    this.setState({ notFound: true,loading: false })
+                }
+                
+                else
+                    this.setState({ loading: false, notFound:false })
+
+                
+                console.log(this.state.userList)
+                
 
             })
     }
@@ -41,6 +53,7 @@ class App extends React.Component {
     }
 
     render() {
+        const {notFound, loading} = this.state;
         return (
             <div className="App">
 
@@ -50,17 +63,19 @@ class App extends React.Component {
 
                 <SearchButton getUsers={this.getUsersList} />
 
-                {this.state.loading?<Spinner/>:
-
-                <CardContainer>
-                    {
-                        this.state.userList.map(user =>
-                            <Card profile={user} />
-                        )
-                    }
-                </CardContainer>
+                {loading ? <Spinner /> : notFound?<NotFoundText/>:
+                    <CardContainer>
+                        {
+                            
+                            this.state.userList.map(user =>
+                                <Card key={user.id} profile={user} />
+                            )
+                            
+                        }
+                    </CardContainer>
 
                 }
+
 
             </div>
         );
