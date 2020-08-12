@@ -7,7 +7,9 @@ import Card from './components/Card';
 import Spinner from "./components/Spinner"
 import NotFoundText from './components/NotFoundText';
 import Alert from './components/Alert';
+import About from './components/pages/About';
 
+import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
 
 
 class App extends React.Component {
@@ -68,7 +70,7 @@ class App extends React.Component {
             })
 
 
-        console.log(this.state.userList ,"Userlist")
+        console.log(this.state.userList, "Userlist")
     }
 
     setUserName = e => {
@@ -84,30 +86,34 @@ class App extends React.Component {
         return (
             <div className="App">
 
+
+
+
+
+
                 <Header />
 
-                {/* If user has not entered anything */}
                 {alert && <Alert />}
-
                 <SearchBox updateUserName={this.setUserName} />
-
                 <SearchButton getUsers={this.getUsersList} />
-
                 {
-                    loading ? <Spinner />
-                        : notFound ? <NotFoundText /> :
+                    loading ? <Spinner /> : // While loading is true show a spinner
+                        notFound ? <NotFoundText /> : // If search yields no results, notFound will be true and no users will be shown
                             <CardContainer>
                                 {
-
                                     this.state.userList.map(user =>
                                         <Card key={user.id} profile={user} />
                                     )
-
                                 }
                             </CardContainer>
-
-
                 }
+
+                {/* <About/> */}
+
+
+
+
+                
 
 
             </div>
