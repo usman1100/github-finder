@@ -84,6 +84,7 @@ class App extends React.Component {
     render() {
         const { notFound, loading, alert } = this.state;
         return (
+            <Router>
             <div className="App">
 
 
@@ -93,30 +94,34 @@ class App extends React.Component {
 
                 <Header />
 
-                {alert && <Alert />}
-                <SearchBox updateUserName={this.setUserName} />
-                <SearchButton getUsers={this.getUsersList} />
-                {
-                    loading ? <Spinner /> : // While loading is true show a spinner
-                        notFound ? <NotFoundText /> : // If search yields no results, notFound will be true and no users will be shown
-                            <CardContainer>
-                                {
-                                    this.state.userList.map(user =>
-                                        <Card key={user.id} profile={user} />
-                                    )
-                                }
-                            </CardContainer>
-                }
+                <Route path="/about" component={About}/>
 
-                {/* <About/> */}
-
-
+                
+                <>
+                    {alert && <Alert />}
+                    <SearchBox updateUserName={this.setUserName} />
+                    <SearchButton getUsers={this.getUsersList} />
+                    {
+                        loading ? <Spinner /> : // While loading is true show a spinner
+                            notFound ? <NotFoundText /> : // If search yields no results, notFound will be true and no users will be shown
+                                <CardContainer>
+                                    {
+                                        this.state.userList.map(user =>
+                                            <Card key={user.id} profile={user} />
+                                        )
+                                    }
+                                </CardContainer>
+                    }
+                </>
 
 
                 
 
 
+
+
             </div>
+            </Router>
         );
     }
 }
