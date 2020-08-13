@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from "../Header"
 import SearchButton from "../SearchButton"
 import SearchBox from '../SearchBox';
 import CardContainer from '../CardContainer';
@@ -84,11 +83,15 @@ class Finder extends React.Component {
             <div className="App">
 
                     {alert && <Alert />}
+
                     <SearchBox updateUserName={this.setUserName} />
+
                     <SearchButton getUsers={this.getUsersList} />
+                    
                     {
-                        loading ? <Spinner /> : // While loading is true show a spinner
-                            notFound ? <NotFoundText /> : // If search yields no results, notFound will be true and no users will be shown
+                    loading ? <Spinner /> : // While loading is true show a spinner
+                            notFound ? <NotFoundText /> : // If search yields no results,
+                                                        // notFound will be true and no users will be shown
                                 <CardContainer>
                                     {
                                         this.state.userList.map(user =>

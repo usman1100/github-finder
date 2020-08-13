@@ -1,20 +1,22 @@
 import React, { Component } from 'react'
 import Finder from "./components/pages/Finder"
 import About from "./components/pages/About"
-import Header from "./components/Header"
+import Navbar from "./components/Navbar"
+import {BrowserRouter as Router, Route} from "react-router-dom"
 
 export default class App extends Component {
     render() {
         return (
-            <div>
+            <Router>
+                <div>
 
-                <Header />
+                    <Navbar />
+                    <Route path="/" exact component={Finder}/>
+                    <Route path="/about" exact component={About}/>
+                    
 
-                <Finder/>
-
-                <About/>
-
-            </div>
+                </div>
+            </Router>
         )
     }
 }
