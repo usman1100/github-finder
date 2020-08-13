@@ -2,16 +2,14 @@ import React from "react";
 
 export default function About() {
     return (
-        <div className="container">
-            <blockquote className="blockquote">
-                <p className="mb-0">
-                    GitHub Finder
-                </p>
-                <footer className="blockquote-footer">
-                    A project of the {" "}
-                    <cite title="Source Title">JSX Group</cite>
-                </footer>
-            </blockquote>
+        <div className="container my-5 text-center">
+            <div className="display-1">
+                Github Finder
+            </div>
+
+            <h4 className="">
+                A project of the <strong>JSX Group</strong>
+            </h4>
         </div>
     );
 }

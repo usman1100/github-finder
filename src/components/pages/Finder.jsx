@@ -6,6 +6,7 @@ import Card from '../Card';
 import Spinner from "../Spinner"
 import NotFoundText from '../NotFoundText';
 import Alert from '../Alert';
+import ClearButton from '../ClearButton';
 
 
 class Finder extends React.Component {
@@ -77,6 +78,8 @@ class Finder extends React.Component {
 
     }
 
+    clearUsers = () => this.setState({userList:[]})
+
     render() {
         const { notFound, loading, alert } = this.state;
         return (
@@ -86,7 +89,11 @@ class Finder extends React.Component {
 
                     <SearchBox updateUserName={this.setUserName} />
 
-                    <SearchButton getUsers={this.getUsersList} />
+                    <div className="container">
+                        <SearchButton getUsers={this.getUsersList} />
+
+                        <ClearButton func={this.clearUsers} />
+                    </div>
                     
                     {
                     loading ? <Spinner /> : // While loading is true show a spinner
